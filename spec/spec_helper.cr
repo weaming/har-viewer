@@ -1,2 +1,2 @@
 require "spec"
-require "../src/har-viewer"
+require "../src/har_viewer"

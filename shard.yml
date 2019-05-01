@@ -2,11 +2,19 @@ name: har-viewer
 version: 0.1.0
 
 authors:
-  - Jiadeng Ruan <jiadeng@16financial.com>
+  - weaming <garden.yuen@gmail.com>
+
+dependencies:
+  har:
+    github: NeuraLegion/har
+  slang:
+    github: jeromegn/slang
+  kilt:
+    github: jeromegn/kilt
 
 targets:
   har-viewer:
-    main: src/har-viewer.cr
+    main: src/har_viewer.cr
 
 crystal: 0.28.0
 

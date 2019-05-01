@@ -10,10 +10,6 @@ TODO: Write installation instructions here
 
 TODO: Write usage instructions here
 
-## Development
-
-TODO: Write development instructions here
-
 ## Contributing
 
 1. Fork it (<https://github.com/your-github-user/har-viewer/fork>)
@@ -24,4 +20,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Jiadeng Ruan](https://github.com/your-github-user) - creator and maintainer
+- [weaming](https://github.com/weaming) - creator and maintainer

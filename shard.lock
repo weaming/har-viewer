@@ -1,0 +1,14 @@
+version: 1.0
+shards:
+  har:
+    github: NeuraLegion/har
+    commit: d4bc21b27c0e8de03ad08b1a1fc398d319714694
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.4.0
+
+  slang:
+    github: jeromegn/slang
+    version: 1.7.1
+
