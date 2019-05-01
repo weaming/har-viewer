@@ -1,6 +1,6 @@
 # har-viewer
 
-TODO: Write a description here
+Service to render HAR as html.
 
 ## Installation
 
