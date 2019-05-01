@@ -1,0 +1,13 @@
+name: har-viewer
+version: 0.1.0
+
+authors:
+  - Jiadeng Ruan <jiadeng@16financial.com>
+
+targets:
+  har-viewer:
+    main: src/har-viewer.cr
+
+crystal: 0.28.0
+
+license: MIT
