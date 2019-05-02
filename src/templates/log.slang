@@ -14,7 +14,7 @@ div.log.container
           h1.column.col-12 #{@path}
 
           div.column.col-12
-            h4 Meta
+            h2 Meta
 
             div.btn-group
               button.btn.btn-primary version
@@ -39,7 +39,7 @@ div.log.container
                 button.btn.btn-primary comment
                 button.btn #{log.comment}
             - if pg = log.pages
-              h4 Pages
+              h3 Pages
               div.card-body
                 - pg.each do |x|
                   div.card.col-12
@@ -73,7 +73,7 @@ div.log.container
             div.divider.text-center data-content="Following are entries"
 
           div.column.col-12
-            h3 Entries
+            h2 Entries
               div.container
                 div.columns
                   - log.entries.size.times do |i|
@@ -82,11 +82,17 @@ div.log.container
                         div.entry.card id="#{i}"
                           - req = x.request
                           - res = x.response
+
+                          div.card-header
+                            div.entry.card id="#{i}"
+                              h3 #{URI.parse(req.url).host}
+
                           div.card-body
                             div.divider.text-center data-content="Request"
                             div.request
+                              h4 Request
                               div.general
-                                h4 General
+                                h5 General
                                 div.btn-group
                                   button.btn.btn-primary method
                                   button.btn #{req.method}
@@ -112,7 +118,7 @@ div.log.container
 
                               - if req.queryString.size > 0
                                 div.queries
-                                  h4 Queries
+                                  h5 Queries
                                   - req.queryString.each do |xx|
                                     div.btn-group
                                       button.btn.btn-primary #{xx.name}
@@ -124,14 +130,14 @@ div.log.container
 
                               - if req.fragments
                                 div.fragments
-                                  h4 Fragments
+                                  h5 Fragments
                                   - req.fragments.not_nil!.each do |xx|
                                     div.btn-group
                                       button.btn.btn-primary
                                       button.btn #{xx}
 
                               div.headers
-                                h4 Headers
+                                h5 Headers
                                 - req.headers.each do |xx|
                                   div.btn-group
                                     button.btn.btn-primary #{xx.name}
@@ -178,7 +184,7 @@ div.log.container
 
                               - if res.cookies.size > 0
                                 div.cookies
-                                  h4 Cookies
+                                  h5 Cookies
                                   - res.cookies.each do |xx|
                                     div.btn-group
                                       button.btn.btn-primary name
@@ -214,7 +220,7 @@ div.log.container
                                         button.btn #{xx.comment}
 
                               div.headers
-                                h4 Headers
+                                h5 Headers
                                 - res.headers.each do |xx|
                                   div.btn-group
                                     button.btn.btn-primary #{xx.name}
@@ -228,7 +234,7 @@ div.log.container
                               - c = res.content
                               - if c.size.not_nil! > 0
                                 div.content
-                                  h4 Content
+                                  h5 Content
                                   div.btn-group
                                     button.btn.btn-primary size
                                     button.btn #{c.size}
@@ -252,11 +258,11 @@ div.log.container
                                       button.btn #{c.comment}
 
                                   div.text
-                                    h5 Text
+                                    h6 Text
                                     textarea.form-input #{c.text}
                                   - if c.mimeType == "application/json" && c.text
                                     - if txt = c.text
                                       div.json
-                                        h5 JSON
+                                        h6 JSON
                                         code.json #{JSON.parse(txt).to_pretty_json   }
     div.column.col-2
