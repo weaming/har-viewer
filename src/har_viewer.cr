@@ -32,19 +32,20 @@ module HARViewer
       # avoid compile fail
       log = @log
       if log
-        body = self.render_entries log.entries
+        body = self.render_log log
       else
         body = ""
       end
       head + body
     end
 
-    def render_entries(entries : Array(HAR::Entries)) : String
-      Kilt.render("src/templates/entries.slang")
+    def render_log(log : HAR::Log) : String
+      Kilt.render("src/templates/log.slang")
     end
 
     def render_head : String
-      ""
+      title = @path
+      Kilt.render("src/templates/head.slang")
     end
   end
 
