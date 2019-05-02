@@ -1,161 +1,262 @@
-div.log
-  div.meta
-    h2.title Meta
-    div.version
-      div.name Version
-      div.value #{log.version}
-    - if xx = log.creator
-      div.creator
-        div.productname
-          div.name Name
-          div.value #{xx.name}
-        div.version
-          div.name Version
-          div.value #{xx.version}
-        - if xx.comment
-          div.comment
-            div.name Commment
-            pre.comment.value #{xx.comment}
-    div.browser #{log.browser}
-    - if log.comment
-      pre.comment #{log.comment}
-  - if pg = log.pages
-    div.pages
-      h3.title Pages
-      - pg.each do |x|
-        div.startedDateTime #{x.startedDateTime}
-        div.id #{x.id}
-        h4.title #{x.title}
-        - if pt = x.pageTimings
-          div.onContentLoad #{pt.onContentLoad}
-          div.onLoad #{pt.onLoad}
-          - if pt.comment
-            pre.comment #{pt.comment}
-        - if x.comment
-          div.comment
-            div.name Comment
-            pre.comment.value #{x.comment}
-  div.entries
-    h2.title Entries
-    - log.entries.each do |x|
-      div.entry
-        - req = x.request
-        - res = x.response
-        div.request
-          h3.title Request
-          div.general
-            h4.title General
-            div.method
-              div.name Method
-              div.value #{req.method}
-            div.url
-              div.name URL
-              div.value #{req.url}
-            div.httpVersion
-              div.name HTTP Version
-              div.value #{req.httpVersion}
-            div.responseStatus
-              div.name Status Code
-              div.value #{res.status}
-            div.headersSize
-              div.name Headers Size
-              div.value #{req.headersSize}
-            div.bodySize
-              div.name Body Size
-              div.value #{req.bodySize}
-            - if req.comment
-              div.comment
-                div.name Comment
-                pre.comment.value #{req.comment}
-          div.queries
-            h4.title Queries
-            - req.queryString.each do |xx|
-              div.query
-                div.name #{xx.name}
-                div.value #{xx.value}
-                - if xx.comment
-                  div.comment
-                    div.name Commment
-                    pre.comment.value #{xx.comment}
-          - if req.fragments
-            div.fragments
-              h4.title Fragments
-              - req.fragments.not_nil!.each do |xx|
-                div.fragment #{xx}
-          div.headers
-            h4.title Headers
-            - req.headers.each do |xx|
-              div.header
-                div.name #{xx.name}
-                div.value #{xx.value}
-                - if xx.comment
-                  div.comment
-                    div.name Commment
-                    pre.comment.value #{xx.comment}
-          - if req.postData
-            div.postData
-              h4.title PostData
-              div.mimeType #{req.postData}
-        div.response
-          h3.title Response
-          div.general
-            h4.title General
-            div.status #{res.status}
-            div.statusText #{res.statusText}
-            div.httpVersion #{res.httpVersion}
-            div.redirectURL #{res.redirectURL}
-            div.headersSize #{req.headersSize}
-            div.bodySize #{req.bodySize}
-          - if res.cookies
-            div.cookies
-              h4.title Cookies
-              - res.cookies.each do |xx|
-                div.cookie
-                  div.name #{xx.name}
-                  div.value #{xx.value}
-                  div.path #{xx.path}
-                  div.domain #{xx.domain}
-                  div.expires #{xx.expires}
-                  div.httpOnly #{xx.httpOnly}
-                  div.secure #{xx.secure}
-                  - if xx.comment
-                    div.comment
-                      div.name Commment
-                      pre.comment.value #{xx.comment}
-          div.headers
-            h4.title Headers
-            - res.headers.each do |xx|
-              div.header
-                div.name #{xx.name}
-                div.value #{xx.value}
-                - if xx.comment
-                  div.comment
-                    div.name Commment
-                    pre.comment.value #{xx.comment}
-          div.content
-            - c = res.content
-            h4.title Content
-            div.size
-              div.name Size
-              div.value #{c.size}
-            div.compression
-              div.name Compression
-              div.value #{c.compression}
-            div.mimeType
-              div.name MIME Type
-              div.value #{c.mimeType}
-            div.encoding
-              div.name Encoding
-              div.value #{c.encoding}
-            - if c.comment
-              div.comment
-                div.name Commment
-                pre.comment.value #{c.comment}
-            div.text
-              h5.title Text
-              pre.text #{c.text}
-            - if c.mimeType == "application/json" && c.text
-              - if txt = c.text
-                div.json
-                  h5.title JSON
-                  pre.json #{JSON.parse(txt).to_pretty_json   }
+
+div.log.container
+  div.columns
+    div.column.col-1
+    div.column.col-1.p-sticky
+      - log.entries.size.times do |i|
+        - if x = log.entries[i]?
+          ul.nav
+            li.nav-item
+              a.float-right href="##{i}" #{URI.parse(x.request.url).host}
+    div.column.col-8
+      div.container
+        div.columns
+          h1.column.col-12 #{@path}
+
+          div.column.col-12
+            h4 Meta
+
+            div.btn-group
+              button.btn.btn-primary version
+              button.btn #{log.version}
+            - if xx = log.creator
+              div.btn-group
+                button.btn.btn-primary creator.name
+                button.btn #{xx.name}
+              div.btn-group
+                button.btn.btn-primary creator.version
+                button.btn #{xx.version}
+              - if xx.comment
+                div.btn-group
+                  button.btn.btn-primary creator.comment
+                  button.btn #{xx.comment}
+            - if log.browser
+              div.btn-group
+                button.btn.btn-primary browser
+                button.btn #{log.browser}
+            - if log.comment
+              div.btn-group
+                button.btn.btn-primary comment
+                button.btn #{log.comment}
+            - if pg = log.pages
+              h4 Pages
+              div.card-body
+                - pg.each do |x|
+                  div.card.col-12
+                    div.card-body
+                      div.btn-group
+                        button.btn.btn-primary startedDateTime
+                        button.btn #{x.startedDateTime}
+                      div.btn-group
+                        button.btn.btn-primary id
+                        button.btn #{x.id}
+                      div.btn-group
+                        button.btn.btn-primary title
+                        button.btn #{x.title}
+                      - if pt = x.pageTimings
+                        div.btn-group
+                          button.btn.btn-primary timings.onContentLoad
+                          button.btn #{pt.onContentLoad}
+                        div.btn-group
+                          button.btn.btn-primary timings.onLoad
+                          button.btn #{pt.onLoad}
+                        - if pt.comment
+                          div.btn-group
+                            button.btn.btn-primary timings.comment
+                            button.btn #{pt.comment}
+                      - if x.comment
+                        div.btn-group
+                          button.btn.btn-primary comment
+                          button.btn #{x.comment}
+
+          div.column.col-12
+            div.divider.text-center data-content="Following are entries"
+
+          div.column.col-12
+            h3 Entries
+              div.container
+                div.columns
+                  - log.entries.size.times do |i|
+                    - if x = log.entries[i]?
+                      div.column.col-12
+                        div.entry.card id="#{i}"
+                          - req = x.request
+                          - res = x.response
+                          div.card-body
+                            div.divider.text-center data-content="Request"
+                            div.request
+                              div.general
+                                h4 General
+                                div.btn-group
+                                  button.btn.btn-primary method
+                                  button.btn #{req.method}
+                                div.btn-group
+                                  button.btn.btn-primary url
+                                  button.btn #{req.url}
+                                div.btn-group
+                                  button.btn.btn-primary version
+                                  button.btn #{req.httpVersion}
+                                div.btn-group
+                                  button.btn.btn-primary status
+                                  button.btn #{res.status}
+                                div.btn-group
+                                  button.btn.btn-primary headers size
+                                  button.btn #{req.headersSize}
+                                div.btn-group
+                                  button.btn.btn-primary body size
+                                  button.btn #{req.bodySize}
+                                - if req.comment
+                                  div.btn-group
+                                    button.btn.btn-primary comment
+                                    button.btn #{req.comment}
+
+                              - if req.queryString.size > 0
+                                div.queries
+                                  h4 Queries
+                                  - req.queryString.each do |xx|
+                                    div.btn-group
+                                      button.btn.btn-primary #{xx.name}
+                                      button.btn #{xx.value}
+                                    - if xx.comment
+                                      div.btn-group
+                                        button.btn.btn-primary #{xx.comment}
+                                        button.btn #{xx.comment}
+
+                              - if req.fragments
+                                div.fragments
+                                  h4 Fragments
+                                  - req.fragments.not_nil!.each do |xx|
+                                    div.btn-group
+                                      button.btn.btn-primary
+                                      button.btn #{xx}
+
+                              div.headers
+                                h4 Headers
+                                - req.headers.each do |xx|
+                                  div.btn-group
+                                    button.btn.btn-primary #{xx.name}
+                                    button.btn #{xx.value}
+                                  - if xx.comment
+                                    div.btn-group
+                                      button.btn.btn-primary comment
+                                      button.btn #{xx.comment}
+
+                              - if req.postData
+                                div.postData
+                                  h5 PostData
+                                  pre #{req.postData}
+
+                            div.divider.text-center data-content="Response"
+                            div.response
+                              h4 Response
+                              div.general
+                                div.btn-group
+                                  button.btn.btn-primary status
+                                  button.btn #{res.status}
+
+                                div.btn-group
+                                  button.btn.btn-primary version
+                                  button.btn #{res.httpVersion}
+
+                                - if res.statusText != ""
+                                  div.btn-group
+                                    button.btn.btn-primary statusText
+                                    button.btn #{res.statusText}
+
+                                - if res.redirectURL != ""
+                                  div.btn-group
+                                    button.btn.btn-primary redirect
+                                    button.btn #{res.redirectURL}
+
+                                div.btn-group
+                                  button.btn.btn-primary headers size
+                                  button.btn #{res.headersSize}
+
+                                div.btn-group
+                                  button.btn.btn-primary body size
+                                  button.btn #{res.bodySize}
+
+                              - if res.cookies.size > 0
+                                div.cookies
+                                  h4 Cookies
+                                  - res.cookies.each do |xx|
+                                    div.btn-group
+                                      button.btn.btn-primary name
+                                      button.btn #{xx.name}
+
+                                    div.btn-group
+                                      button.btn.btn-primary value
+                                      button.btn #{xx.value}
+
+                                    div.btn-group
+                                      button.btn.btn-primary path
+                                      button.btn #{xx.path}
+
+                                    div.btn-group
+                                      button.btn.btn-primary domain
+                                      button.btn #{xx.domain}
+
+                                    div.btn-group
+                                      button.btn.btn-primary expires
+                                      button.btn #{xx.expires}
+
+                                    div.btn-group
+                                      button.btn.btn-primary httpOnly
+                                      button.btn #{xx.httpOnly}
+
+                                    div.btn-group
+                                      button.btn.btn-primary secure
+                                      button.btn #{xx.secure}
+
+                                    - if xx.comment
+                                      div.btn-group
+                                        button.btn.btn-primary comment
+                                        button.btn #{xx.comment}
+
+                              div.headers
+                                h4 Headers
+                                - res.headers.each do |xx|
+                                  div.btn-group
+                                    button.btn.btn-primary #{xx.name}
+                                    button.btn #{xx.value}
+
+                                  - if xx.comment
+                                    div.btn-group
+                                      button.btn.btn-primary comment
+                                      button.btn #{xx.comment}
+
+                              - c = res.content
+                              - if c.size.not_nil! > 0
+                                div.content
+                                  h4 Content
+                                  div.btn-group
+                                    button.btn.btn-primary size
+                                    button.btn #{c.size}
+
+                                  div.btn-group
+                                    button.btn.btn-primary compression
+                                    button.btn #{c.compression}
+
+                                  div.btn-group
+                                    button.btn.btn-primary mime type
+                                    button.btn #{c.mimeType}
+
+                                  - if c.encoding
+                                    div.btn-group
+                                      button.btn.btn-primary encoding
+                                      button.btn #{c.encoding}
+
+                                  - if c.comment
+                                    div.btn-group
+                                      button.btn.btn-primary comment
+                                      button.btn #{c.comment}
+
+                                  div.text
+                                    h5 Text
+                                    textarea.form-input #{c.text}
+                                  - if c.mimeType == "application/json" && c.text
+                                    - if txt = c.text
+                                      div.json
+                                        h5 JSON
+                                        code.json #{JSON.parse(txt).to_pretty_json   }
+    div.column.col-2

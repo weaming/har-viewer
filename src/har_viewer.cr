@@ -1,3 +1,4 @@
+require "uri"
 require "har"
 require "kilt/slang"
 
