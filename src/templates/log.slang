@@ -7,7 +7,7 @@ div.log.container
         - if x = log.entries[i]?
           ul.nav
             li.nav-item
-              a.float-right href="##{i}" #{URI.parse(x.request.url).host}
+              a.float-right href="##{i+1}" #{URI.parse(x.request.url).host}
     div.column.col-8
       div.container
         div.columns
@@ -84,8 +84,7 @@ div.log.container
                           - res = x.response
 
                           div.card-header
-                            div.entry.card id="#{i}"
-                              h3 #{URI.parse(req.url).host}
+                            h3.label.label-success.label-rounded #{i+1} #{URI.parse(req.url).host}
 
                           div.card-body
                             div.divider.text-center data-content="Request"
@@ -259,7 +258,7 @@ div.log.container
 
                                   div.text
                                     h6 Text
-                                    textarea.form-input #{c.text}
+                                    textarea.form-input style="height: 20em;" #{c.text}
                                   - if c.mimeType == "application/json" && c.text
                                     - if txt = c.text
                                       div.json

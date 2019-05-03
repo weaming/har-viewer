@@ -15,11 +15,15 @@ end
 module Helper::CLI
   extend self
 
-  def argv_first(msg : String) : String
-    if ARGV.size < 1 || ARGV[0] == ""
+  def argv_n(n : Int32, msg : String) : String
+    if ARGV.size < n || ARGV[n - 1] == ""
       puts msg
       exit 1
     end
-    first = ARGV[0]
+    first = ARGV[n - 1]
+  end
+
+  def argv_first(msg : String) : String
+    argv_n 1, msg
   end
 end

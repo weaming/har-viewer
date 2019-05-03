@@ -1,6 +1,7 @@
 require "uri"
 require "har"
 require "kilt/slang"
+require "kemal"
 
 require "./helper"
 
@@ -51,9 +52,49 @@ module HARViewer
   end
 
   def main
-    renderer = Renderer.new "-"
-    html = renderer.render
-    FileIO.write_file CLI.argv_first("missing OUTPUT"), html.to_slice
+    out_or_cmd = CLI.argv_first("missing OUTPUT or COMMAND. COMMAND choices are [serve, ].")
+    if out_or_cmd == "serve"
+      port = CLI.argv_n(2, "missing port")
+      serve_http port.to_i32
+    else
+      renderer = Renderer.new "-"
+      html = renderer.render
+      FileIO.write_file out_or_cmd, html.to_slice
+    end
+  end
+
+  def serve_http(port : Int32?)
+    error 404 do
+      "404 NOT FOUND"
+    end
+
+    get "/*" do |env|
+      path = env.request.path[1..]
+      if path == ""
+        path = "."
+      end
+
+      if File.file?(path) && path.ends_with?(".har")
+        renderer = Renderer.new path
+        html = renderer.render
+        html
+      elsif File.directory?(path)
+        if path.ends_with?('/') || path == "."
+          dir = Dir.open path
+          title = path
+          head = Kilt.render("src/templates/head.slang")
+          body = Kilt.render("src/templates/dir.slang")
+          head + body
+        else
+          env.redirect "#{path}"
+        end
+      else
+        puts "#{path} not found"
+        env.response.status_code = 404
+      end
+    end
+
+    Kemal.run port
   end
 end
 
