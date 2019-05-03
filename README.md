@@ -2,9 +2,11 @@
 
 Service to render HAR as html.
 
-## Installation
+## Install
 
-TODO: Write installation instructions here
+* `brew install crystal`
+* `git clone https://github.com/weaming/har-viewer && cd har-viewer`
+* `shards build -v --release && mv ./bin/har-viewer /usr/local/bin`
 
 ## Usage
 
@@ -15,11 +17,12 @@ commands
     serve <port>  : serve http
 ```
 
-## Install
+## About `.har`
 
-* `brew install crystal`
-* `git clone https://github.com/weaming/har-viewer && cd har-viewer`
-* `shards build -v --release && mv ./bin/har-viewer /usr/local/bin`
+* [json_mapping](https://github.com/NeuraLegion/har/blob/master/src/har/json_mapping.cr)
+* [.har wikipedia](https://en.wikipedia.org/wiki/.har)
+
+
 
 ## Contributing
 
