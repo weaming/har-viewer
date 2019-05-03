@@ -89,7 +89,7 @@ module HARViewer
           env.redirect "#{path}"
         end
       else
-        puts "#{path} not found"
+        # puts "#{path} not found"
         env.response.status_code = 404
       end
     end
