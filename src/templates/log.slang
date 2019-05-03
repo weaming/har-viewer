@@ -238,9 +238,10 @@ div.log.container
                                     button.btn.btn-primary size
                                     button.btn #{c.size}
 
-                                  div.btn-group
-                                    button.btn.btn-primary compression
-                                    button.btn #{c.compression}
+                                  - if c.compression
+                                    div.btn-group
+                                      button.btn.btn-primary compression
+                                      button.btn #{c.compression}
 
                                   div.btn-group
                                     button.btn.btn-primary mime type
