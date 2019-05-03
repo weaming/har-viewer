@@ -79,7 +79,7 @@ div.log.container
                   - log.entries.size.times do |i|
                     - if x = log.entries[i]?
                       div.column.col-12
-                        div.entry.card id="#{i}"
+                        div.entry.card id="#{i+1}"
                           - req = x.request
                           - res = x.response
 
