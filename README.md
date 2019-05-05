@@ -6,7 +6,7 @@ Service to render HAR as html.
 
 * `brew install crystal`
 * `git clone https://github.com/weaming/har-viewer && cd har-viewer`
-* `shards build -v --release && mv ./bin/har-viewer /usr/local/bin`
+* `shards build -v --release && mv ./bin/har-viewer /usr/local/bin` or `make install`
 
 ## Usage
 
