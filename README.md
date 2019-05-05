@@ -2,6 +2,8 @@
 
 Service to render HAR as html.
 
+Example project to learn crystal language. The size of `--release` version compiled executable is only 1.4M on OSX! That's awesome!
+
 ## Install
 
 * `brew install crystal`
