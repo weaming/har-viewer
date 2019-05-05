@@ -26,4 +26,11 @@ module Helper::CLI
   def argv_first(msg : String) : String
     argv_n 1, msg
   end
+
+  def argv_n?(n : Int32, default : String = "") : String
+    if ARGV.size < n || ARGV[n - 1] == ""
+      return default
+    end
+    ARGV[n - 1]
+  end
 end

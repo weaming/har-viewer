@@ -52,14 +52,15 @@ module HARViewer
   end
 
   def main
-    out_or_cmd = CLI.argv_first("missing OUTPUT or COMMAND. COMMAND choices are [serve, ].")
-    if out_or_cmd == "serve"
+    input_or_cmd = CLI.argv_first("missing .har INPUT file path or COMMAND. COMMAND choices are [serve, ].")
+    if input_or_cmd == "serve"
       port = CLI.argv_n(2, "missing port")
       serve_http port.to_i32
     else
-      renderer = Renderer.new "-"
+      outfile = CLI.argv_n? 2, default: "/dev/stdout"
+      renderer = Renderer.new input_or_cmd
       html = renderer.render
-      FileIO.write_file out_or_cmd, html.to_slice
+      FileIO.write_file outfile, html.to_slice
     end
   end
 

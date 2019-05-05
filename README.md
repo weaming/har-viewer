@@ -11,18 +11,19 @@ Service to render HAR as html.
 ## Usage
 
 ```
-xhr-viewer <path-of-har>|<command>
+xhr-viewer (<path-of-har> [<html-output-path>])|<command>
 
-commands
-    serve <port>  : serve http
+modes
+    render one .har file
+        <path-of-har> [<html-output-path>]  : default write to stdout
+    commands
+        serve <port>  : serve http
 ```
 
 ## About `.har`
 
 * [json_mapping](https://github.com/NeuraLegion/har/blob/master/src/har/json_mapping.cr)
 * [.har wikipedia](https://en.wikipedia.org/wiki/.har)
-
-
 
 ## Contributing
 
