@@ -1,14 +1,12 @@
-
 div.log.container
   div.columns
-    div.column.col-1
-    div.column.col-1.p-sticky
+    div.column.col-2.hide-md.p-sticky
       - log.entries.size.times do |i|
         - if x = log.entries[i]?
           ul.nav
             li.nav-item
               a.float-right href="##{i+1}" #{URI.parse(x.request.url).host}
-    div.column.col-8
+    div.column.col-9.col-md-12
       div.container
         div.columns
           h1.column.col-12 #{@path}
@@ -79,7 +77,7 @@ div.log.container
                   - log.entries.size.times do |i|
                     - if x = log.entries[i]?
                       div.column.col-12
-                        div.entry.card id="#{i+1}"
+                        div.entry.card.s-rounded.m-2 id="#{i+1}"
                           - req = x.request
                           - res = x.response
 
@@ -142,9 +140,7 @@ div.log.container
                                     button.btn.btn-primary #{xx.name}
                                     button.btn #{xx.value}
                                   - if xx.comment
-                                    div.btn-group
-                                      button.btn.btn-primary comment
-                                      button.btn #{xx.comment}
+                                    button.btn #{xx.comment}
 
                               - if req.postData
                                 div.postData
@@ -264,5 +260,6 @@ div.log.container
                                     - if txt = c.text
                                       div.json
                                         h6 JSON
-                                        code.json #{JSON.parse(txt).to_pretty_json   }
-    div.column.col-2
+                                        pre.json.bg-gray.p-1 #{JSON.parse(txt).to_pretty_json   }
+
+    div.column.col-1.hide-md
