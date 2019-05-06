@@ -82,7 +82,8 @@ div.log.container
                           - res = x.response
 
                           div.card-header
-                            h3.label.label-primary.label-rounded ##{i+1} #{URI.parse(req.url).host}
+                            h3.label.label-primary.label-rounded
+                              a.text-secondary href="##{i+1}" ##{i+1} #{URI.parse(req.url).host}
 
                           div.card-body
                             div.divider.text-center data-content="Request"
