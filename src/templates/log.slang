@@ -5,7 +5,7 @@ div.log.container
         - if x = log.entries[i]?
           ul.nav
             li.nav-item
-              a.float-right href="##{i+1}" #{URI.parse(x.request.url).host}
+              a.float-right.label.label-rounded href="##{i+1}" #{URI.parse(x.request.url).host} #{i+1}
     div.column.col-9.col-md-12
       div.container
         div.columns
@@ -82,7 +82,7 @@ div.log.container
                           - res = x.response
 
                           div.card-header
-                            h3.label.label-success.label-rounded #{i+1} #{URI.parse(req.url).host}
+                            h3.label.label-primary.label-rounded ##{i+1} #{URI.parse(req.url).host}
 
                           div.card-body
                             div.divider.text-center data-content="Request"
