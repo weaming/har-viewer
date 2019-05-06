@@ -13,7 +13,7 @@ Example project to learn crystal language. The size of `--release` version compi
 ## Usage
 
 ```
-xhr-viewer (<path-of-har> [<html-output-path>])|<command>
+xhr-viewer (<path-of-har> [<html-output-path>])|(<command> [<options>])
 
 modes
     render one .har file
