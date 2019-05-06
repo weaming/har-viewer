@@ -264,3 +264,17 @@ div.log.container
                                         pre.json.bg-gray.p-1 #{JSON.parse(txt).to_pretty_json   }
 
     div.column.col-1.hide-md
+
+  script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"
+  javascript:
+    (function() {
+      let clipboard = new ClipboardJS('.btn-group, .btn', {
+        text: function(trigger) {
+          return trigger.innerText;
+        }
+      })
+      clipboard.on('success', function(e) {
+        console.info('copied "' + e.text + '"');
+      });
+    })()
+
