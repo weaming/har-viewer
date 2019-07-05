@@ -17,7 +17,7 @@ Click the key-value buttons to copy the inner text!
 ## Usage
 
 ```
-xhr-viewer (<path-of-har> [<html-output-path>])|(<command> [<options>])
+har-viewer (<path-of-har> [<html-output-path>])|(<command> [<options>])
 
 modes
     render one .har file
